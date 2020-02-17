@@ -8,6 +8,18 @@ node {
     
  def project_path="01-Jenkins/Code/petclinic"
  
+ dir(project_path) {
+
+   stage('Jfrog Artifacory Upload') {
+def downloadSpec = """{
+ "files": [{
+      "pattern": "Devops301/*.war",
+      "target": "../../../04-Terraform/03-Ansible-Deploy/ansible/04-Tomcat/templates/"}]
+}"""
+server.download spec: downloadSpec
+}
+}
+ 
    stage('Geting Ready For Ansible') {
   sh label: 'Docker', script: 'cp -rf target/*.war ../../../04-Terraform/03-Ansible-Deploy/ansible/04-Tomcat/templates/'
   sh label: 'Jenkins', script: "echo '<h1> TASK BUILD ID: ${env.BUILD_DISPLAY_NAME}</h1>' > ../../../04-Terraform/03-Ansible-Deploy/ansible/04-Tomcat/templates/apps/index.html"
