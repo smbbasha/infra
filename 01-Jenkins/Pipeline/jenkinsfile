@@ -11,10 +11,11 @@ node {
  dir(project_path) {
 
    stage('Jfrog Artifacory Upload') {
-def downloadSpec = """{
- "files": [{
-      "pattern": "Devops301/*.war",
-      "target": "../../../04-Terraform/03-Ansible-Deploy/ansible/04-Tomcat/templates/"}]
+	def server= Artifactory.server 'jfrog'
+        def downloadSpec = """{
+        "files": [{
+        "pattern": "Devops301/*.war",
+        "target": "../../../04-Terraform/03-Ansible-Deploy/ansible/04-Tomcat/templates/"}]
 }"""
 server.download spec: downloadSpec
 }
