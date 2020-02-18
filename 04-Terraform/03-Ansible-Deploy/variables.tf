@@ -1,5 +1,5 @@
 variable "key_name" {
-  default = "mansoor"
+  default = "smb"
 }
 
 variable "pvt_key" {
